@@ -80,6 +80,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cambiar Contrase&#xf1;a"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

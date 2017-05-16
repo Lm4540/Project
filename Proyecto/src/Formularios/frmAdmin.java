@@ -56,6 +56,11 @@ public class frmAdmin extends javax.swing.JFrame {
         });
 
         jToggleButton1.setText("Cambiar Contraseña");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,17 +93,15 @@ public class frmAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        MantenimientoUsers frmUser= new MantenimientoUsers();
+        mantoUsuarios frmUser= new mantoUsuarios(this, true);
         frmUser.setVisible(true);
-        this.dispose();
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        MantenimientoActividades frmAgenda= new MantenimientoActividades();
+     mantoAgendas frmAgenda= new mantoAgendas(this, true);
         frmAgenda.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -108,6 +111,12 @@ public class frmAdmin extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        CambiarContra jDcontra= new CambiarContra(this, true);    
+        jDcontra.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
