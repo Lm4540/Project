@@ -16,38 +16,6 @@ public class Usuarios {
     private String nombre;
     private String ocupacion;
     private String email;
-    private String preguntas;
-    private String rrspuesta;
-   private int id;
-
-    public String getPreguntas() {
-        return preguntas;
-    }
-
-    public Usuarios(String user, String contra, String nivel, String nombre, String ocupacion, String email, String preguntas, String rrspuesta, int id) {
-        this.user = user;
-        this.contra = contra;
-        this.nivel = nivel;
-        this.nombre = nombre;
-        this.ocupacion = ocupacion;
-        this.email = email;
-        this.preguntas = preguntas;
-        this.rrspuesta = rrspuesta;
-        this.id = id;
-    }
-
-    public void setPreguntas(String preguntas) {
-        this.preguntas = preguntas;
-    }
-
-    public String getRrspuesta() {
-        return rrspuesta;
-    }
-
-    public void setRrspuesta(String rrspuesta) {
-        this.rrspuesta = rrspuesta;
-    }
-    
 
     public Usuarios() {
     }
@@ -109,13 +77,5 @@ public class Usuarios {
         this.email = email;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    
    
 }
