@@ -137,7 +137,7 @@ public class Registro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     
+      
        SQL conn=new SQL();
        if(conn.ExisteCorreo(txtCorreo.getText())){
            JOptionPane.showMessageDialog(this, "Esta Direccion de Correo Electronico ya esta Registrada\n Si ha olvidado su conraseña presione 'Volver' y Luego 'Olvide mi contraseña' ");
@@ -150,8 +150,11 @@ public class Registro extends javax.swing.JFrame {
         Usuarios us = new Usuarios(txtUsuario.getText(),contra,"user",txtNombre.getText(),txtOcupacion.getText(),txtCorreo.getText());
         
         if(conn.Insertar(us, "usuarios",1)){
-         JOptionPane.showMessageDialog(this, "Registro realizado con exito, Revisa su direcion de correo electronico para obtener la contraseña");
         
+            Email correo=new Email(contra);
+            correo.setTo(txtCorreo.getText());
+            correo.SEND();
+            JOptionPane.showMessageDialog(this, "Registro realizado con exito, Revisa su direcion de correo electronico para obtener la contraseña");
         
         }
         
