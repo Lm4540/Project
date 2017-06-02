@@ -103,7 +103,13 @@ public class Recuperacion extends javax.swing.JFrame {
             {
             String contra=UUID.randomUUID().toString().toUpperCase().substring(0, 10);
                 if(base.CambiarClave(txtUser.getText(), txtEmail.getText(), contra))
-                {JOptionPane.showMessageDialog(this, "Hecho");}
+                {
+                 Email correo=new Email(contra);
+                    correo.setTo(txtEmail.getText());
+                    correo.SEND();
+                JOptionPane.showMessageDialog(this, "Pass Cambiado con exito, revisa tu correo Electronico");
+                
+                }
             }else{JOptionPane.showMessageDialog(this, "la combiacion usuario correo son incorrectas");}
 
         // TODO add your handling code here:

@@ -1,8 +1,8 @@
 package Clases;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 /**
  *
  * @author Luis Rivera
@@ -91,33 +91,36 @@ public class SQL {
     //METODO PARA INSERTAR/MODIFCAR/Eliminar EN LAS TABLAS
      public boolean Insertar(Object obj, String tabla, int n){
          String sql=""; 
-         if(n==1){
-         switch(tabla){
-        case "usuarios":
-           Usuarios a= (Usuarios)obj;
-            sql ="insert into usuarios values('"+a.getUser()+"', '"+a.getContra()+"', '"+a.getNivel()+"', '"+a.getNombre()+"','"+a.getOcupacion()+"','"+a.getEmail()+"')";
-            break;
-         }
-         }else if (n==2){
-         switch(tabla){
-        case "usuarios":
-           Usuarios a= (Usuarios)obj;
-            sql ="update usuarios set contra='"+a.getContra()+"', nombre='"+a.getNombre()+"', nivel='"+a.getNivel()+"', ocupacion='"+a.getOcupacion()+"', email='"+a.getEmail()+"'  where usuario='"+a.getUser()+"'";
-            break;
-         
-         
-         
-         }
-         
-         }else{
-         switch(tabla){
-        case "usuarios":
-           Usuarios a= (Usuarios)obj;
-            sql ="delete from usuarios where usuario='"+a.getUser()+"'";
-            break;
-         
-         }
-         }
+        switch (n) {
+            case 1:
+                switch(tabla){
+                    case "usuarios":
+                        Usuarios a= (Usuarios)obj;
+                        sql ="insert into usuarios values('"+a.getUser()+"', '"+a.getContra()+"', '"+a.getNivel()+"', '"+a.getNombre()+"','"+a.getOcupacion()+"','"+a.getEmail()+"')";
+                        break;
+                }      
+                break;
+            case 2:
+                switch(tabla){
+                    case "usuarios":
+                        Usuarios a= (Usuarios)obj;
+                        sql ="update usuarios set contra='"+a.getContra()+"', nombre='"+a.getNombre()+"', nivel='"+a.getNivel()+"', ocupacion='"+a.getOcupacion()+"', email='"+a.getEmail()+"'  where usuario='"+a.getUser()+"'";
+                        break;
+                        
+                        
+                        
+                }     
+                break;
+            case 3:
+                switch(tabla){
+                    case "usuarios":
+                        Usuarios a= (Usuarios)obj;
+                        sql ="delete from usuarios where usuario='"+a.getUser()+"'";
+                        break;
+                        
+                }     
+                break;
+        }
          
         try {
              con=DriverManager.getConnection(Bd.getUrl(), Bd.getUser(), Bd.getContra());
@@ -139,7 +142,6 @@ public class SQL {
        }
      
      //METODO PARA USAR EL LOGUEO
-     
        public String log(String user, String contra){
           String nivel="";
         String sql= "select nivel from usuarios where usuario='"+user+"' and contra='"+contra+"'";
@@ -149,8 +151,7 @@ public class SQL {
             con=DriverManager.getConnection(Bd.getUrl(), Bd.getUser(), Bd.getContra());
             pst=con.prepareStatement(sql);
             rs=pst.executeQuery();
-            
-          
+                 
           if(rs.next()){
              nivel=rs.getString(1);
           }   
@@ -158,7 +159,6 @@ public class SQL {
             JOptionPane.showMessageDialog(null, e);
             
         }finally{
-        
               try {
                   con.close();
               } catch (SQLException ex) {
@@ -170,26 +170,21 @@ public class SQL {
      
        
        //METODOs PARA Verificar si un usuario ya existe 
-     
+       //Verificar Si El Correo ya ha sido registrado antes
        public boolean ExisteCorreo(String valor){
           boolean resultado=false;
-        String sql= "select * from usuarios where email='"+valor+"'";
-        
+            String sql= "select * from usuarios where email='"+valor+"'";
         try {
             Class.forName(Bd.getDriver());
             con=DriverManager.getConnection(Bd.getUrl(), Bd.getUser(), Bd.getContra());
             pst=con.prepareStatement(sql);
-            rs=pst.executeQuery();
-            
-          
-          if(rs.next()){
+            rs=pst.executeQuery();         
+            if(rs.next()){
              resultado= true;
           }   
         } catch (ClassNotFoundException|SQLException e) {
                JOptionPane.showMessageDialog(null, e);
-            
         }finally{
-        
               try {
                   con.close();
               } catch (SQLException ex) {
@@ -199,7 +194,7 @@ public class SQL {
         return resultado;
     }
      
-       
+       //Verificar si este nombre de usuario esta disponible
        public boolean ExisteUser(String valor){
           boolean resultado=false;
         String sql= "select * from usuarios where usuario='"+valor+"'";
@@ -207,16 +202,13 @@ public class SQL {
             Class.forName(Bd.getDriver());
             con=DriverManager.getConnection(Bd.getUrl(), Bd.getUser(), Bd.getContra());
             pst=con.prepareStatement(sql);
-            rs=pst.executeQuery();
-             
-          
-          if(rs.next()){
-             resultado= true;
+            rs=pst.executeQuery();          
+            if(rs.next()){
+               resultado= true;
           }   
         } catch (ClassNotFoundException|SQLException e) {
             JOptionPane.showMessageDialog(null, e);
             }finally{
-        
               try {
                   con.close();
               } catch (SQLException ex) {
@@ -229,24 +221,20 @@ public class SQL {
        //ACTUALIZAR CLAVE DE USUARIO:
        public boolean CambiarClave(String user, String correo, String clave){
             String sql="UPDATE `usuarios` SET `contra` = '"+clave+"' WHERE usuario = '"+user+"' and email='"+correo+"'"; 
-          
-        try {
-             con=DriverManager.getConnection(Bd.getUrl(), Bd.getUser(), Bd.getContra());
-            pst=con.prepareStatement(sql);
-           pst.executeUpdate();
-           return true;
-        } catch (SQLException e) {
-             return false;
-        }finally{
-        
-              try {
-                  con.close();
-              } catch (SQLException ex) {
-                  JOptionPane.showMessageDialog(null, ex.getMessage());
-              }
-        }
-        
-        
+            try {
+                con=DriverManager.getConnection(Bd.getUrl(), Bd.getUser(), Bd.getContra());
+                pst=con.prepareStatement(sql);
+                pst.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                 return false;
+            }finally{
+                  try {
+                      con.close();
+                  } catch (SQLException ex) {
+                      JOptionPane.showMessageDialog(null, ex.getMessage());
+                  }
+            }
        }
        
        /*Verificar si una consulta devuelve un resultado:
@@ -260,15 +248,13 @@ public class SQL {
             Class.forName(Bd.getDriver());
             con=DriverManager.getConnection(Bd.getUrl(), Bd.getUser(), Bd.getContra());
             pst=con.prepareStatement(sql);
-            rs=pst.executeQuery();
-                
-          if(rs.next()){
-             resultado= true;
-          }   
+            rs=pst.executeQuery();   
+            if(rs.next()){
+                resultado= true;
+            }   
         } catch (ClassNotFoundException|SQLException e) {
             JOptionPane.showMessageDialog(null, e);
             }finally{
-        
               try {
                   con.close();
               } catch (SQLException ex) {
@@ -277,5 +263,37 @@ public class SQL {
         }
         return resultado;
     }
+       
+        //METODO PARA Verificar Clave
+       public boolean VerficarClave(String user, String clave){
+          boolean  correcta=false;
+          String sql= "select contra from usuarios where usuario='"+user+"'";
+            try {
+                Class.forName(Bd.getDriver());
+                con=DriverManager.getConnection(Bd.getUrl(), Bd.getUser(), Bd.getContra());
+                pst=con.prepareStatement(sql);
+                rs=pst.executeQuery();
+                if(rs.next()){
+                    if(clave.equals(rs.getString(1))){
+                    correcta=true;
+                    }
+                 }   
+            } catch (ClassNotFoundException|SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }finally{
+                  try {
+                      con.close();
+                  } catch (SQLException ex) {
+                      JOptionPane.showMessageDialog(null, ex);
+                  }
+            }
+        return correcta;
+    }
+     
+       
+       
+       
+       
+       
         
 }

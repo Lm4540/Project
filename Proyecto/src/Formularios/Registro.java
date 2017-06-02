@@ -143,20 +143,20 @@ public class Registro extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(this, "Esta Direccion de Correo Electronico ya esta Registrada\n Si ha olvidado su conraseña presione 'Volver' y Luego 'Olvide mi contraseña' ");
               }
         else if(conn.ExisteUser(txtUsuario.getText())){
-        JOptionPane.showMessageDialog(this, "Este Usuario  ya esta Registrado\n Si ha olvidado su conraseña presione 'Volver' y Luego 'Olvide mi contraseña' ");
+                JOptionPane.showMessageDialog(this, "Este Usuario  ya esta Registrado\n Si ha olvidado su conraseña presione 'Volver' y Luego 'Olvide mi contraseña' ");
         }else{
             
-            String contra=UUID.randomUUID().toString().toUpperCase().substring(0, 10);
-        Usuarios us = new Usuarios(txtUsuario.getText(),contra,"user",txtNombre.getText(),txtOcupacion.getText(),txtCorreo.getText());
+             String contra=UUID.randomUUID().toString().toUpperCase().substring(0, 10);
+             Usuarios us = new Usuarios(txtUsuario.getText(),contra,"user",txtNombre.getText(),txtOcupacion.getText(),txtCorreo.getText());
         
-        if(conn.Insertar(us, "usuarios",1)){
-        
-            Email correo=new Email(contra);
-            correo.setTo(txtCorreo.getText());
-            correo.SEND();
-            JOptionPane.showMessageDialog(this, "Registro realizado con exito, Revisa su direcion de correo electronico para obtener la contraseña");
-        
-        }
+            if(conn.Insertar(us, "usuarios",1)){
+
+                Email correo=new Email(contra);
+                correo.setTo(txtCorreo.getText());
+                correo.SEND();
+                JOptionPane.showMessageDialog(this, "Registro realizado con exito, Revisa su direcion de correo electronico para obtener la contraseña");
+                this.dispose();
+            }
         
         }
         
